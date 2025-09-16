@@ -1,0 +1,12 @@
+Antes do plano foi feito:
+Seleção aleatória de palavra ao dar refresh na página, transformando todas as palavras do arquivo em itens de uma lista
+Plano de ação Mogoso (pode ser alterado conforme necessidade):
+1 - Realizar um parse para limpar as palavras do arquivo "palavra.txt" - fonte: https://www.ime.usp.br/
+1.1 - Selecionar apenas as palavras de 6 letras do arquivo
+1.2 - Tentar remover verbos conjugados
+2 - Fazer a interface visual
+2.1 - Integrar a interface com o servidor
+3 - Programar a seleção de uma palavra por dia
+4 - Programar o teste de palavra
+4.1 - Programar o servidor para verficar se a palavra digitada pelo usuário é uma palavra dentro da base de dados
+4.2 - Programar os testes que resultam em 3 possibilidades para cada letra da palavra enviada pelo usuário: correto, parcialmente correto, incorreto

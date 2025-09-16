@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mogoso</title>
+        <link rel="stylesheet" type="text/css" href="mogoso.css">
+        <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div id="top">
+            <button id="tutorial"><span class="text">?</span></button>
+            <h1 style="color: whitesmoke;">Mogoso</h1>
+        </div>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close">&times;</span>
+                <h1>Mogoso</h1>
+                <p>Descubra a palavra correta de 6 letras em 9 tentativas. Conforme as tentativas, você vai conseguir mais dicas.</p>
+            </div>
+        </div>
+        <input maxlength="6" id="tentativa" placeholder="Faça sua tentativa aqui!">
+        <p id="palavra"></p>
+        <p id="palvraUser"></p>
+        <div id="containers">
+            <div id="p1" class="tentativa"></div>
+        </div>
+
+        <script>
+            const popup = document.getElementById("popup");
+            const btn = document.getElementById("tutorial");
+            const closeBtn = document.querySelector(".close");
+
+            btn.onclick = () => {popup.style.display = "block";};
+
+            closeBtn.onclick = () => {popup.style.display = "none";};
+
+            window.onclick = (e) => {
+                if (e.target === popup){popup.style.display = "none";}
+            };
+
+            document.addEventListener('keydown', function(event){
+                if (event.key === 'Escape'){ popup.style.display = "none";}
+            });
+
+            async function carregarPalavra() {
+                try {
+                    let resp = await fetch("http://localhost:5000/mogoso");
+                    console.log("Resposta fetch:", resp);
+                    let palavra = await resp.text();
+                    console.log("Texto recebido:", palavra);
+                    document.getElementById("palavra").innerText = "Palavra sorteada: " + palavra;
+                } catch (e) {
+                    console.error("Erro ao buscar palavra:", e);
+                }
+            }
+
+            window.onload = carregarPalavra;
+
+            async function enviarPalavra() {
+                const tentativa = document.getElementById("tentativa").value;
+
+                try {
+                    const resp = await fetch("http://localhost:5000/mogoso", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: "tentativa=" + encodeURIComponent(tentativa)
+                    });
+
+                    const resultado = await resp.text();
+                    document.getElementById("palavraUser").innerText = resultado;
+                } catch (e) {
+                    console.error("Erro ao enviar palavra:", e);
+                }
+            }
+
+            document.getElementById("tentativa")
+                .addEventListener("keydown", function(event) {
+                    if (event.key === "Enter") enviarPalavra();
+                });
+        </script>
+    </body>
+</html>
