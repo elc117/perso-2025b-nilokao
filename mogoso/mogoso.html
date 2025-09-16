@@ -20,12 +20,12 @@
         </div>
         <input maxlength="6" id="tentativa" placeholder="Faça sua tentativa aqui!">
         <p id="palavra"></p>
-        <p id="palvraUser"></p>
+        <p id="palavraUser"></p>
         <div id="containers">
             <div id="p1" class="tentativa"></div>
         </div>
 
-        <script>
+        <script type="text/javascript">
             const popup = document.getElementById("popup");
             const btn = document.getElementById("tutorial");
             const closeBtn = document.querySelector(".close");
@@ -73,10 +73,9 @@
                 }
             }
 
-            document.getElementById("tentativa")
-                .addEventListener("keydown", function(event) {
-                    if (event.key === "Enter") enviarPalavra();
-                });
+            document.getElementById("tentativa").addEventListener("keydown", function(event) {
+                if (event.key === "Enter") enviarPalavra();
+            });
         </script>
     </body>
 </html>
