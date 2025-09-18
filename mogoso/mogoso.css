@@ -119,6 +119,7 @@ input{
     transition: color 0.3s ease-in-out;
     text-align: center;
     color: whitesmoke;
+    text-transform: uppercase;
 }
 
 input:focus{
@@ -127,14 +128,19 @@ input:focus{
     transition: color 0.3 ease-in-out;
     color: black
 }
+
+input::placeholder{
+    text-transform: none;
+}
+
 #containers {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 25px;
+    margin: 20px auto 0 auto;
     width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
+    text-transform: uppercase;
+    font-family: "Fontdiner Swanky", serif;
 }
 
 .resposta {
@@ -156,4 +162,56 @@ input:focus{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.verde {
+    background-color: rgb(74, 139, 74);
+    color: whitesmoke;
+}
+
+.amarelo {
+    background-color: rgb(139, 135, 74);
+    color: whitesmoke;
+}
+
+.vermelho {
+    background-color: rgb(139, 74, 74);
+    color: whitesmoke;
+}
+
+#keyboard-cont {
+    margin: 2rem auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+}
+
+#keyboard-cont div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.keyboard-button {
+    flex: 1;                /* cada botão se ajusta */
+    margin: 2px;
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 2px solid #444;
+    background-color: #333;
+    color: whitesmoke;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.keyboard-button:hover {
+    background-color: #555;
+}
+
+/* enter e delete maiores */
+.keyboard-button:nth-child(1),
+.keyboard-button:nth-child(9) {
+    flex: 1.5;
 }

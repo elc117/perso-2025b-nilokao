@@ -19,7 +19,6 @@
             </div>
         </div>
         <input maxlength="6" id="tentativa" placeholder="Faça sua tentativa aqui!">
-        <p id="palavraUser"></p>
         <div id="containers">
             <div id="r1" class="resposta">
                 <div class="letra"></div>
@@ -78,57 +77,158 @@
                 <div class="letra"></div>
             </div>
         </div>
+        <div id="keyboard-cont">
+            <div class="first-row">
+                <button class="keyboard-button">q</button>
+                <button class="keyboard-button">w</button>
+                <button class="keyboard-button">e</button>
+                <button class="keyboard-button">r</button>
+                <button class="keyboard-button">t</button>
+                <button class="keyboard-button">y</button>
+                <button class="keyboard-button">u</button>
+                <button class="keyboard-button">i</button>
+                <button class="keyboard-button">o</button>
+                <button class="keyboard-button">p</button>
+            </div>
+            <div class="second-row">
+                <button class="keyboard-button">a</button>
+                <button class="keyboard-button">s</button>
+                <button class="keyboard-button">d</button>
+                <button class="keyboard-button">f</button>
+                <button class="keyboard-button">g</button>
+                <button class="keyboard-button">h</button>
+                <button class="keyboard-button">j</button>
+                <button class="keyboard-button">k</button>
+                <button class="keyboard-button">l</button>
+            </div>
+            <div class="third-row">
+                <button class="keyboard-button">Del</button>
+                <button class="keyboard-button">z</button>
+                <button class="keyboard-button">x</button>
+                <button class="keyboard-button">c</button>
+                <button class="keyboard-button">v</button>
+                <button class="keyboard-button">b</button>
+                <button class="keyboard-button">n</button>
+                <button class="keyboard-button">m</button>
+                <button class="keyboard-button">Enter</button>
+            </div>
+        </div>
 
         <script type="text/javascript">
-            const popup = document.getElementById("popup");
-            const btn = document.getElementById("tutorial");
-            const closeBtn = document.querySelector(".close");
+        const popup = document.getElementById("popup");
+        const btn = document.getElementById("tutorial");
+        const closeBtn = document.querySelector(".close");
 
-            btn.onclick = () => {popup.style.display = "block";};
+        btn.onclick = () => { popup.style.display = "block"; };
+        closeBtn.onclick = () => { popup.style.display = "none"; };
+        window.onclick = (e) => { if (e.target === popup) popup.style.display = "none"; };
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') popup.style.display = "none"; });
 
-            closeBtn.onclick = () => {popup.style.display = "none";};
+        async function carregarPalavra() {
+            try {
+                const resp = await fetch("http://localhost:5000/mogoso");
+                const palavra = await resp.text();
+                console.log("Palavra atual:", palavra);
+            } catch (e) {
+                console.error("Erro ao buscar palavra:", e);
+            }
+        }
 
-            window.onclick = (e) => {
-                if (e.target === popup){popup.style.display = "none";}
-            };
+        window.onload = carregarPalavra;
 
-            document.addEventListener('keydown', function(event){
-                if (event.key === 'Escape'){ popup.style.display = "none";}
-            });
+        function atualizarTeclado(tentativa, resultado) {
+            const botoes = document.querySelectorAll(".keyboard-button");
 
-            async function carregarPalavra() {
-                try {
-                    let resp = await fetch("http://localhost:5000/mogoso");
-                    console.log("Resposta fetch:", resp);
-                    let palavra = await resp.text();
-                    console.log("Texto recebido:", palavra);
-                } catch (e) {
-                    console.error("Erro ao buscar palavra:", e);
-                }
+            for (let i = 0; i < tentativa.length; i++) {
+                const letra = tentativa[i].toLowerCase();
+                botoes.forEach(btn => {
+                    const btnLetra = btn.textContent.trim().toLowerCase();
+                    if (btnLetra === letra) { 
+                        if (resultado[i] === 2) {
+                            btn.classList.remove("amarelo", "vermelho");
+                            btn.classList.add("verde");
+                        }
+                        else if (resultado[i] === 1 && !btn.classList.contains("verde")) {
+                            btn.classList.remove("vermelho");
+                            btn.classList.add("amarelo");
+                        }
+                        else if (resultado[i] === 0 && !btn.classList.contains("verde") && !btn.classList.contains("amarelo")) {
+                            btn.classList.add("vermelho");
+                        }
+                    }
+                });
+            }
+        }
+
+        let tentativaAtual = 1;
+        async function enviarPalavra() {
+            const tentativaInput = document.getElementById("tentativa");
+            const tentativa = tentativaInput.value.toLowerCase().trim();
+
+            if (tentativa.length !== 6) {
+                alert("Digite uma palavra com 6 letras!");
+                return;
             }
 
-            window.onload = carregarPalavra;
+            try {
+                tentativaInput.value = '';
+                const resp = await fetch("http://localhost:5000/mogoso", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: "tentativa=" + encodeURIComponent(tentativa)
+                });
 
-            async function enviarPalavra() {
-                const tentativa = document.getElementById("tentativa").value;
+                const resultado = await resp.json();
 
-                try {
-                    const resp = await fetch("http://localhost:5000/mogoso", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: "tentativa=" + encodeURIComponent(tentativa)
-                    });
-
-                    const resultado = await resp.text();
-                    document.getElementById("palavraUser").innerText = resultado;
-                } catch (e) {
-                    console.error("Erro ao enviar palavra:", e);
+                if (typeof resultado === "string") {
+                    alert(resultado);
+                    return;
                 }
-            }
 
-            document.getElementById("tentativa").addEventListener("keydown", function(event) {
-                if (event.key === "Enter") enviarPalavra();
-            });
+                const linha = document.getElementById("r" + tentativaAtual);
+                tentativaAtual++;
+                const letra = linha.getElementsByClassName("letra");
+
+                atualizarTeclado(tentativa, resultado);
+
+                for (let i = 0; i < 6; i++) {
+                    letra[i].innerText = tentativa[i];
+                    letra[i].classList.remove("verde", "amarelo", "vermelho");
+
+                    if (resultado[i] === 2) letra[i].classList.add("verde");
+                    else if (resultado[i] === 1) letra[i].classList.add("amarelo");
+                    else letra[i].classList.add("vermelho");
+                }
+
+                let vencedor = true;
+                for (let i = 0; i < 6; i++) {
+                    if (!letra[i].classList.contains("verde")) {
+                        vencedor = false;
+                        break;
+                    }
+                }
+
+                if (vencedor) {
+                    alert("Você venceu!");
+                    tentativaInput.disabled = true;
+                    return;
+                }
+
+                if (tentativaAtual > 7 && !vencedor) {
+                    alert("Você perdeu!");
+                    tentativaInput.disabled = true;
+                    return;
+                }
+
+            } catch (e) {
+                console.error("Erro ao enviar palavra:", e);
+            }
+        }
+
+        document.getElementById("tentativa").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") enviarPalavra();
+        });
         </script>
+
     </body>
 </html>
