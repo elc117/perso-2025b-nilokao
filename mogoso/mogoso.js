@@ -1,4 +1,4 @@
-
+// popup do tutorial
 const popup = document.getElementById("popup");
 const btn = document.getElementById("tutorial");
 const closeBtn = document.querySelector(".close");
@@ -8,6 +8,7 @@ closeBtn.onclick = () => { popup.style.display = "none"; };
 window.onclick = (e) => { if (e.target === popup) popup.style.display = "none"; };
 document.addEventListener('keydown', e => { if (e.key === 'Escape') popup.style.display = "none"; });
 
+// função que carrega uma palavra do servidor
 async function carregarPalavra() {
     try {
         const resp = await fetch("http://localhost:5000/mogoso");
@@ -20,6 +21,7 @@ async function carregarPalavra() {
 
 window.onload = carregarPalavra;
 
+// função do teclado
 function atualizarTeclado(tentativa, resultado) {
     const botoes = document.querySelectorAll(".keyboard-button");
 
@@ -50,10 +52,12 @@ function atualizarTeclado(tentativa, resultado) {
 
 let tentativaAtual = 1;
 
+// função que vai enviar a palavra do usuário ao servidor
 async function enviarPalavra() {
     const tentativaInput = document.getElementById("tentativa");
     const tentativa = tentativaInput.value.toLowerCase().trim();
 
+    // checa se a palavra tem 6 letras
     if (tentativa.length !== 6) {
         alert("Digite uma palavra com 6 letras!");
         return;
@@ -67,8 +71,10 @@ async function enviarPalavra() {
             body: "tentativa=" + encodeURIComponent(tentativa)
         });
 
+        // json com a resposta do servidor
         const resultado = await resp.json();
 
+        // se a resposta foi uma string é porque deu errado, ou seja, o usuário digitou uma palavra que não está no dicionário
         if (typeof resultado === "string") {
             alert(resultado);
             return;
@@ -78,8 +84,10 @@ async function enviarPalavra() {
         tentativaAtual++;
         const letra = linha.getElementsByClassName("letra");
 
+        // atualiza o teclado com base no json
         atualizarTeclado(tentativa, resultado);
 
+        // vai colorir a tentaiva do usuário conforme as cores que o json definiu
         for (let i = 0; i < 6; i++) {
             letra[i].innerText = tentativa[i];
             letra[i].classList.remove("verde", "amarelo", "vermelho");
@@ -89,6 +97,7 @@ async function enviarPalavra() {
             else letra[i].classList.add("vermelho");
         }
 
+        // testes de vencedor/perdedor - venceu ou excedeu as tentativas
         let vencedor = true;
         for (let i = 0; i < 6; i++) {
             if (!letra[i].classList.contains("verde")) {
@@ -110,7 +119,7 @@ async function enviarPalavra() {
         }
 
     } catch (e) {
-        console.error("Erro ao enviar palavra:", e);
+        console.error("Erro ao enviar palavra:", e); // tratamento de exceção
     }
 }
 
@@ -118,6 +127,7 @@ document.getElementById("tentativa").addEventListener("keydown", function(event)
     if (event.key === "Enter") enviarPalavra();
 });
 
+// trata do teclado virtual
 function configurarTecladoVirtual() {
     const input = document.getElementById("tentativa");
     const botoes = document.querySelectorAll(".keyboard-button");

@@ -22,18 +22,21 @@ getRandomWord = do
     index <- randomRIO (0, length ws - 1)
     return (ws !! index)
 
+-- vai remover uma letra de uma string, isso vai ser usado para casos de haver uma letra repetida em uma palavra
 removeOne :: Eq a => a -> [a] -> [a]
 removeOne _ [] = []
 removeOne c (x:xs)
     | c == x    = xs
     | otherwise = x : removeOne c xs
 
+-- função principal de testagem de palavra, ela marca como "verdes" as letras certas e na posição certas, para que durante aquele teste elas sejam removidas
 testWord :: String -> String -> [Int]
 testWord tentativa word =
     let greens   = [ if t == p then 2 else -1 | (t,p) <- zip tentativa word ]
         restWord = [ p | (g,p) <- zip greens word, g /= 2 ]
     in mark greens tentativa restWord
 
+-- função que "marca" as letras, retornando uma lista com números, 0, 1 ou 2, que representam se uma letra está errada, parcialmente correta ou correta
 mark :: [Int] -> String -> String -> [Int]
 mark [] [] _ = []
 mark (g:gs) (t:ts) rest
@@ -56,7 +59,7 @@ main = do
             setHeader "Access-Control-Allow-Headers" "Content-Type, Authorization"
             text ""
 
-        -- GET: retorna a palavra atual
+        -- GET: retorna a palavra atual a cada abertura do servidor
         get "/mogoso" $ do
             w <- liftIO (readIORef ref)
             setHeader "Access-Control-Allow-Origin" "*"
@@ -69,11 +72,13 @@ main = do
             ws <- liftIO myWords
             setHeader "Access-Control-Allow-Origin" "*"
 
+            -- recebe e normaliza a palavra recebida
             let tentativaStr   = TL.unpack (TL.strip tentativa)
                 wordStr        = TL.unpack w
                 tentativaLower = map toLower tentativaStr
                 wsLower        = map (map toLower . TL.unpack) ws
 
+            -- cria um json com o retorno do testWord e passa para o frontend, além de testar se a palavra está na base de dados
             if tentativaLower `notElem` wsLower
             then json ("Palavra inválida!" :: String)
             else do

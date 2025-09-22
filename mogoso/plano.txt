@@ -10,5 +10,3 @@ Plano de ação Mogoso (pode ser alterado conforme necessidade):
 4 - Programar o teste de palavra
 4.1 - Programar o servidor para verficar se a palavra digitada pelo usuário é uma palavra dentro da base de dados
 4.2 - Programar os testes que resultam em 3 possibilidades para cada letra da palavra enviada pelo usuário: correto, parcialmente correto, incorreto
-
-https://www.freecodecamp.org/news/build-a-wordle-clone-in-javascript/ - teclado
