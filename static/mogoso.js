@@ -13,7 +13,6 @@ async function carregarPalavra() {
     try {
         const resp = await fetch("http://localhost:5000/mogoso");
         const palavra = await resp.text();
-        console.log("Palavra atual:", palavra);
     } catch (e) {
         console.error("Erro ao buscar palavra:", e);
     }

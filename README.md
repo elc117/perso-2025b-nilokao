@@ -24,6 +24,34 @@ Antes de falar sobre a parte mais díficil, vale destacar o que foi fácil, ler 
 
 Já sobre o JavaScript, as funções são relativamente simples, elas basicamente recebem dados do backend e processam para imprimir para o usuário. O CSS foi baseado no jogo em que o Mogoso tem como base, com algumas modificações de cores e fonte, escolhidas pelo gosto pessoal do programador. 
 
+## Como rodar o Mogoso:
+1. Clone o repositório para a pasta de sua preferência.
+    ```console
+    cd seuDiretório
+    ```
+    ```console
+    git clone https://github.com/elc117/perso-2025b-nilokao.git
+    ```
+    ```console
+    cd seuDiretório/perso-2025b-nilokao
+    ```
+
+2. Rode o cabal.
+    ```console
+    cabal build
+    ```
+
+    ```console
+    cabal run mogoso
+    ```
+
+3. Navegue até a pasta static e abra o arquivo html.
+    ```console
+    cd seuDiretório/perso-2025b-nilokao/static
+    ```
+
+4. Jogue o Mogoso :).
+
 ## Fontes e referências
 1: https://www.ime.usp.br/
 
