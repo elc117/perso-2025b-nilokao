@@ -22,7 +22,9 @@ Provavelmente, a parte mais complexa do desenvolvimento foi programar a função
 
 Antes de falar sobre a parte mais díficil, vale destacar o que foi fácil, ler o arquivo de palavras e limpá-lo, assim como sortear uma palavra foi tranquilo, com algoritmos adaptados<sup>3</sup> usando a biblioteca Text, além de um dos trabalhos dos semestres passados<sup>4</sup> ter feito uma prática parecida em seu código, o que facilitou a aplicação.
 
-Já sobre o JavaScript, as funções são relativamente simples, elas basicamente recebem dados do backend e processam para imprimir para o usuário. O CSS foi baseado no jogo em que o Mogoso tem como base, com algumas modificações de cores e fonte, escolhidas pelo gosto pessoal do programador. 
+Já sobre o JavaScript, as funções são relativamente simples, elas basicamente recebem dados do backend e processam para imprimir para o usuário ou tratam algumas funcionalidades simples como o botão de tutorial. O CSS foi baseado no jogo em que o Mogoso tem como base, com algumas modificações de cores e fonte, escolhidas pelo gosto pessoal do programador.
+
+Na parte de verificação de palavras, são usadas algumas funcionalidades do Haskell (presentes em outras linguagens também), como o uso de recursão na função mark, que recebe uma lista de inteiros, uma palavra e um caractere, e vai testando recursivamente, e para cada resultado realiza outra ação, como remover da palavra aquela letra para que ela não seja testada erroneamnete. O uso do zip<sup>5</sup> que é padrão da Prelude, que vai concatenar elementos de duas listas para uma tupla, juntando assim a posição da letra com a letra, sendo necessário para comparar a letra e posição, para encontrar letras "verdes".
 
 ## Como rodar o Mogoso:
 1. Clone o repositório para a pasta de sua preferência.
@@ -36,7 +38,7 @@ Já sobre o JavaScript, as funções são relativamente simples, elas basicament
     cd seuDiretório/perso-2025b-nilokao
     ```
 
-2. Rode o cabal.
+2. Rode o Cabal.
     ```console
     cabal build
     ```
@@ -52,6 +54,8 @@ Já sobre o JavaScript, as funções são relativamente simples, elas basicament
 
 4. Jogue o Mogoso :).
 
+(sobre a funcionabilidade do Cabal, e o arquivo hie.yaml, consultar as fontes 6 e 7)
+
 ## Fontes e referências
 1: https://www.ime.usp.br/
 
@@ -60,5 +64,11 @@ Já sobre o JavaScript, as funções são relativamente simples, elas basicament
 3: https://stackoverflow.com/questions/22547430/haskell-readfile-line-by-line-and-put-into-list
 
 4: https://github.com/elc117/perso-2024b-fennerspohr
+
+5: https://hackage.haskell.org/package/base-4.21.0.0/docs/Prelude.html#v:zip
+
+6: https://cabal.readthedocs.io/en/3.4/cabal-package.html
+
+7: https://haskell-language-server.readthedocs.io/en/latest/configuration.html
 
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/7NMOLXjY)

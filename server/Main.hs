@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+module Main (main, testWord, mark, removeOne, myWords, getRandomWord) where
+
 import Web.Scotty
 import Network.Wai.Middleware.RequestLogger (logStdoutDev)
 import System.Random (randomRIO)
