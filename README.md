@@ -28,7 +28,8 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
 
 ## Como rodar o Mogoso:
 1. Clone o repositório para a pasta de sua preferência.
-    ```console
+
+   ```console
     cd seuDiretório
     ```
     
@@ -40,8 +41,9 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
     cd seuDiretório/perso-2025b-nilokao
     ```
 
-2. Rode o Cabal.
-    ```console
+3. Rode o Cabal.
+
+   ```console
     cabal build
     ```
 
@@ -49,18 +51,20 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
     cabal run mogoso
     ```
 
-3. Navegue até a pasta static e abra o arquivo html.
-    ```console
+4. Navegue até a pasta static e abra o arquivo html.
+
+   ```console
     cd seuDiretório/perso-2025b-nilokao/static
     ```
 
-4. Jogue o Mogoso :).
+5. Jogue o Mogoso :).
 
 (sobre a funcionabilidade do Cabal, e o arquivo hie.yaml, consultar as fontes 6 e 7)
 
 ## Execução:
+
 <video controls>
-  <source src="src/video.mp4" type="video/mp4">
+  <source src="./src/video.mp4" type="video/mp4">
   Seu navegador não suporta o elemento de vídeo.
 </video>
 
