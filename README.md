@@ -56,7 +56,10 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
 
 (sobre a funcionabilidade do Cabal, e o arquivo hie.yaml, consultar as fontes 6 e 7)
 
-## Fontes e referências
+## Execução:
+![vídeo](/src/video.mp4)
+
+## Fontes e referências:
 1: https://www.ime.usp.br/
 
 2: https://www.freecodecamp.org/news/build-a-wordle-clone-in-javascript/
