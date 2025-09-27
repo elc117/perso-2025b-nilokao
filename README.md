@@ -57,7 +57,10 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
 (sobre a funcionabilidade do Cabal, e o arquivo hie.yaml, consultar as fontes 6 e 7)
 
 ## Execução:
-![vídeo](/src/video.mp4)
+<video controls>
+  <source src="src/video.mp4" type="video/mp4">
+  Seu navegador não suporta o elemento de vídeo.
+</video>
 
 ## Fontes e referências:
 1: https://www.ime.usp.br/
