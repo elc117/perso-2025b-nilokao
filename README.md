@@ -31,9 +31,11 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
     ```console
     cd seuDiretório
     ```
+    
     ```console
     git clone https://github.com/elc117/perso-2025b-nilokao.git
     ```
+
     ```console
     cd seuDiretório/perso-2025b-nilokao
     ```
