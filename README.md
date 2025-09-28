@@ -31,7 +31,7 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
     ```console
     cd seuDiretório
     ```
-    
+
     ```console
     git clone https://github.com/elc117/perso-2025b-nilokao.git
     ```
@@ -59,10 +59,7 @@ Na parte de verificação de palavras, são usadas algumas funcionalidades do Ha
 (sobre a funcionabilidade do Cabal, e o arquivo hie.yaml, consultar as fontes 6 e 7)
 
 ## Execução:
-<video controls>
-  <source src="src/video.mp4" type="video/mp4">
-  Seu navegador não suporta o elemento de vídeo.
-</video>
+![Gif de execução](./src/execucao.gif)
 
 ## Fontes e referências:
 1: https://www.ime.usp.br/
